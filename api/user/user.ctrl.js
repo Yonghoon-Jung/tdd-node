@@ -10,7 +10,7 @@ const index = (req, res) => {
     return res.status(400).end();
   }
 
-  models.User.findAll({}).then((users) => {
+  models.User.findAll({ limit }).then((users) => {
     res.json(users);
   });
 };
