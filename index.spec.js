@@ -44,4 +44,14 @@ describe('GET /users/1는', () => {
         });
     });
   });
+
+  describe('실패시', () => {
+    it('id가 숫자가 아닐 경우 400을 반환한다.', (done) => {
+      request(app).get('/users/one').expect(400).end(done);
+    });
+
+    it('id를 찾지 못할 경우 404를 반환한다.', (done) => {
+      request(app).get('/users/999').expect(404).end(done);
+    });
+  });
 });
