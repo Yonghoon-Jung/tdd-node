@@ -67,8 +67,6 @@ const update = (req, res) => {
 
   if (!name) return res.status(400).end();
 
-  // if (isConflict) return res.status(409).end();
-
   models.User.findOne({ where: { id } }).then((user) => {
     if (!user) return res.status(404).end();
 
