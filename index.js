@@ -9,7 +9,7 @@ const users = [
 
 app.use(morgan('dev'));
 
-app.get('/users', function (req, res) {
+app.get('/users', (req, res) => {
   req.query.limit = req.query.limit || 10;
 
   const limit = parseInt(req.query.limit, 10);
@@ -21,7 +21,7 @@ app.get('/users', function (req, res) {
   res.send(users.slice(0, limit));
 });
 
-app.get('/users/:id', function (req, res) {
+app.get('/users/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (Number.isNaN(id)) return res.status(400).end();
@@ -33,7 +33,17 @@ app.get('/users/:id', function (req, res) {
   res.json(user);
 });
 
-app.post('/users', function (req, res) {
+app.delete('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  if (Number.isNaN(id)) return res.status(400).end();
+
+  const filteredUsers = users.filter((user) => user.id !== id);
+
+  res.status(204).end();
+});
+
+app.post('/users', (req, res) => {
   res.send('Create User!');
 });
 
