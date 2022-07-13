@@ -165,13 +165,13 @@ describe('PUT /users/:id는', () => {
     it('없는 유저일 경우 404를 응답한다.', (done) => {
       request(app)
         .put('/users/999')
-        .send({ name: 'test' })
+        .send({ name: 'foo' })
         .expect(404)
         .end(done);
     });
 
     it('이름이 중복일 경우 409를 응답한다.', (done) => {
-      request(app).put('/users/3').send({ name: 'Bek' }).expect(409).end(done);
+      request(app).put('/users/3').send({ name: 'bek' }).expect(409).end(done);
     });
   });
 });
