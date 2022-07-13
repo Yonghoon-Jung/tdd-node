@@ -2,7 +2,7 @@ const request = require('supertest');
 const should = require('should');
 const app = require('./index');
 
-describe('GET /users는,', () => {
+describe('GET /users는', () => {
   describe('성공시', () => {
     it('유저 객체를 담은 배열로 응답한다.', (done) => {
       request(app)
@@ -29,6 +29,19 @@ describe('GET /users는,', () => {
         .get('/users?limit=two')
         .expect(400) // 상태코드
         .end(done);
+    });
+  });
+});
+
+describe('GET /users/1는', () => {
+  describe('성공시', () => {
+    it('id가 1인 유저 객체를 반환한다.', (done) => {
+      request(app)
+        .get('/users/1')
+        .end((req, res) => {
+          res.body.should.have.property('id', 1);
+          done();
+        });
     });
   });
 });
