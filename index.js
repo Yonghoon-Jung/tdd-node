@@ -1,8 +1,16 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bek' },
+  { id: 3, name: 'Chris' },
+];
+
+app.use(morgan('dev'));
 
 app.get('/users', function (req, res) {
-  res.send('User List!');
+  res.send(users);
 });
 
 app.post('/users', function (req, res) {
