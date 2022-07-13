@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 function logger(req, res, next) {
@@ -7,7 +8,15 @@ function logger(req, res, next) {
   next(); // next 함수를 호출해야 다음 로직을 수행
 }
 
+function logger2(req, res, next) {
+  console.log("I'm logger ");
+
+  next(); // next 함수를 호출해야 다음 로직을 수행
+}
+
 app.use(logger);
+app.use(logger2);
+app.use(morgan('dev'));
 
 app.listen(3000, () => {
   console.log('Server is running');
