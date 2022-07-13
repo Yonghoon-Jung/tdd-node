@@ -72,15 +72,18 @@ describe('DELETE /users/1는', () => {
 
 describe('POST /users는', () => {
   describe('성공시', () => {
-    before((done) => {
-      let name = 'daniel',
-        body;
+    let name = 'daniel',
+      body;
+
+    beforeEach((done) => {
       request(app)
         .post('/users')
         .send({ name })
         .expect(201)
         .end((err, res) => {
           body = res.body;
+
+          done();
         });
     });
 
