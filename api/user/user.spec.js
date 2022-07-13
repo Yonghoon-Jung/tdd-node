@@ -5,12 +5,12 @@ const app = require('../../');
 const models = require('../../models');
 
 describe('GET /users는', () => {
+  const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
+
+  before(() => models.sequelize.sync({ force: true }));
+  before(() => models.User.bulkCreate(users));
+
   describe('성공시', () => {
-    const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
-
-    before(() => models.sequelize.sync({ force: true }));
-    before(() => models.User.bulkCreate(users));
-
     it('유저 객체를 담은 배열로 응답한다.', (done) => {
       request(app)
         .get('/users')
@@ -41,6 +41,11 @@ describe('GET /users는', () => {
 });
 
 describe('GET /users/1는', () => {
+  const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
+
+  before(() => models.sequelize.sync({ force: true }));
+  before(() => models.User.bulkCreate(users));
+
   describe('성공시', () => {
     it('id가 1인 유저 객체를 반환한다.', (done) => {
       request(app)
@@ -64,6 +69,11 @@ describe('GET /users/1는', () => {
 });
 
 describe('DELETE /users/1는', () => {
+  const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
+
+  before(() => models.sequelize.sync({ force: true }));
+  before(() => models.User.bulkCreate(users));
+
   describe('성공시', () => {
     it('204를 응답한다.', (done) => {
       request(app).delete('/users/1').expect(204).end(done);
@@ -78,6 +88,11 @@ describe('DELETE /users/1는', () => {
 });
 
 describe('POST /users는', () => {
+  const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
+
+  before(() => models.sequelize.sync({ force: true }));
+  before(() => models.User.bulkCreate(users));
+
   describe('성공시', () => {
     let name = 'daniel',
       body;
@@ -119,6 +134,11 @@ describe('POST /users는', () => {
 });
 
 describe('PUT /users/:id는', () => {
+  const users = [{ name: 'alice' }, { name: 'bek' }, { name: 'chris' }];
+
+  before(() => models.sequelize.sync({ force: true }));
+  before(() => models.User.bulkCreate(users));
+
   describe('성공시', () => {
     it('변경된 name을 응답한다.', (done) => {
       const name = 'chally';
