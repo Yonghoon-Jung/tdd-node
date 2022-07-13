@@ -23,6 +23,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "should": "^13.2.3"
   }
 }
