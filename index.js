@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 
+function logger(req, res, next) {
+  console.log("I'm logger ");
+
+  next(); // next 함수를 호출해야 다음 로직을 수행
+}
+
+app.use(logger);
+
 app.listen(3000, () => {
   console.log('Server is running');
 });
