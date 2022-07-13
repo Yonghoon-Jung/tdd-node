@@ -1,9 +1,5 @@
 // api 로직
-const users = [
-  { id: 1, name: 'Alice' },
-  { id: 2, name: 'Bek' },
-  { id: 3, name: 'Chris' },
-];
+const models = require('../../models');
 
 const index = (req, res) => {
   req.query.limit = req.query.limit || 10;
@@ -14,7 +10,9 @@ const index = (req, res) => {
     return res.status(400).end();
   }
 
-  res.send(users.slice(0, limit));
+  models.User.findAll({}).then((users) => {
+    res.json(users);
+  });
 };
 
 const show = (req, res) => {
