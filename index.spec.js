@@ -127,7 +127,24 @@ describe('PUT /users/:id는', () => {
   });
 
   describe('실패시', () => {
-    it('', (done) => {});
-    it('', (done) => {});
+    it('정수가 아닌 id일 경우 400을 응답한다.', (done) => {
+      request(app).put('/users/one').expect(400).end(done);
+    });
+
+    it('name이 없을 경우 400을 응답한다.', (done) => {
+      request(app).put('/users/3').send({}).expect(400).end(done);
+    });
+
+    it('없는 유저일 경우 404를 응답한다.', (done) => {
+      request(app)
+        .put('/users/999')
+        .send({ name: 'test' })
+        .expect(404)
+        .end(done);
+    });
+
+    it('이름이 중복일 경우 409를 응답한다.', (done) => {
+      request(app).put('/users/3').send({ name: 'Bek' }).expect(409).end(done);
+    });
   });
 });
