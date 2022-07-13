@@ -35,9 +35,9 @@ const destroy = (req, res) => {
 
   if (Number.isNaN(id)) return res.status(400).end();
 
-  const filteredUsers = users.filter((user) => user.id !== id);
-
-  res.status(204).end();
+  models.User.destroy({ where: { id } }).then(() => {
+    res.status(204).end();
+  });
 };
 
 const create = (req, res) => {
