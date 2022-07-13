@@ -75,7 +75,7 @@ describe('POST /users는', () => {
     let name = 'daniel',
       body;
 
-    beforeEach((done) => {
+    before((done) => {
       request(app)
         .post('/users')
         .send({ name })
@@ -93,6 +93,20 @@ describe('POST /users는', () => {
 
     it('입력한 name을 반환한다.', () => {
       body.should.have.property('name', name);
+    });
+  });
+
+  describe('실패시', () => {
+    it('name 파라미터 누락시 400을 반환한다.', (done) => {
+      request(app).post('/users').send({}).expect(400).end(done);
+    });
+
+    it('name이 중복일 경우 409을 반환한다.', (done) => {
+      request(app)
+        .post('/users')
+        .send({ name: 'daniel' })
+        .expect(409)
+        .end(done);
     });
   });
 });
