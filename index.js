@@ -1,27 +1,44 @@
 const express = require('express');
-const morgan = require('morgan');
 const app = express();
 
-function logger(req, res, next) {
-  console.log("I'm logger ");
-
-  next(); // next 함수를 호출해야 다음 로직을 수행
+function commonmw(req, res, next) {
+  console.log('commonmw');
+  next(new Error('error'));
 }
 
-function logger2(req, res, next) {
-  console.log("I'm logger ");
-
-  next(); // next 함수를 호출해야 다음 로직을 수행
+function errormw(err, req, res, next) {
+  console.log(err.message);
+  // 에러를 처리하거나
+  // 에러를 넘기거나
+  next();
 }
 
-app.use(logger);
-app.use(logger2);
-app.use(morgan('dev'));
+app.use(commonmw);
+app.use(errormw);
 
 app.listen(3000, () => {
   console.log('Server is running');
 });
 
+//-------------------------------
+// const morgan = require('morgan');
+
+// function logger(req, res, next) {
+//   console.log("I'm logger ");
+
+//   next(); // next 함수를 호출해야 다음 로직을 수행
+// }
+
+// function logger2(req, res, next) {
+//   console.log("I'm logger ");
+
+//   next(); // next 함수를 호출해야 다음 로직을 수행
+// }
+
+// app.use(logger);
+// app.use(logger2);
+// app.use(morgan('dev'));
+//-------------------------------
 // const http = require('http');
 
 // const hostname = '127.0.0.1';
