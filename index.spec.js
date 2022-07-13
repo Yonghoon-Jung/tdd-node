@@ -69,3 +69,27 @@ describe('DELETE /users/1는', () => {
     });
   });
 });
+
+describe('POST /users는', () => {
+  describe('성공시', () => {
+    before((done) => {
+      let name = 'daniel',
+        body;
+      request(app)
+        .post('/users')
+        .send({ name })
+        .expect(201)
+        .end((err, res) => {
+          body = res.body;
+        });
+    });
+
+    it('생성된 유저 객체를 반환한다.', () => {
+      body.should.have.property('id');
+    });
+
+    it('입력한 name을 반환한다.', () => {
+      body.should.have.property('name', name);
+    });
+  });
+});
